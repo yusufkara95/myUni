@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, ImageBackground, StatusBar } from 'react-native'
 import { auth } from '../firebase'
 import HomeScreen from './HomeScreen'
 
@@ -31,34 +31,52 @@ const LoginScreen = () => {
 
 
     return (
-        <KeyboardAvoidingView style={styles.container} behavior='padding'>
-            <View style={styles.inputContainer}>
-                <TextInput 
-                    placeholder='Hochschul-Email' 
-                    value={email} 
-                    onChangeText={text => setEmail(text)}
-                    style={styles.input}
-                />
-                <TextInput 
-                    placeholder='Hochschul-Kennwort' 
-                    value={password} 
-                    onChangeText={text => setPassword(text)}
-                    style={styles.input}
-                    secureTextEntry
-                />
-            </View>
+        <ScrollView 
+            style={{
+                flex: 1,
+                backgroundColor: '#EEEEEE',
+            }}
+                showsVerticalScrollIndicator={false}>
+                    <ImageBackground 
+                        source={require('../images/background.png')}
+                        style={{
+                            height: 350, 
+                            backgroundColor: 'rgba(0,0,0,.9)'
+                        }}
 
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                    onPress={handleLogin}
-                    style={styles.button}
-                >
-                    <Text style={styles.buttonText}>
-                        Anmelden
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        </KeyboardAvoidingView>
+                    >
+                    </ImageBackground>
+                    <StatusBar backgroundColor="white" barStyle="light-content"/>
+
+            <KeyboardAvoidingView style={styles.container} behavior='padding'>
+                <View style={styles.inputContainer}>
+                    <TextInput 
+                        placeholder='Hochschul-Email' 
+                        value={email} 
+                        onChangeText={text => setEmail(text)}
+                        style={styles.input}
+                    />
+                    <TextInput 
+                        placeholder='Hochschul-Kennwort' 
+                        value={password} 
+                        onChangeText={text => setPassword(text)}
+                        style={styles.input}
+                        secureTextEntry
+                    />
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity 
+                        onPress={handleLogin}
+                        style={styles.button}
+                    >
+                        <Text style={styles.buttonText}>
+                            Anmelden
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 
@@ -71,6 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     inputContainer: {
+        marginTop: 20,
         width: '80%'
     },
     input: {
