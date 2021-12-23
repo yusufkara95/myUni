@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, ImageBackground, StatusBar } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, ImageBackground, StatusBar, Image } from 'react-native'
 import { auth } from '../firebase'
 import HomeScreen from './HomeScreen'
 
@@ -13,7 +13,7 @@ const LoginScreen = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             if(user) {
-                navigation.replace("Home")
+                navigation.navigate("Home")
             }
         })
         return unsubscribe
@@ -41,10 +41,15 @@ const LoginScreen = () => {
                         source={require('../images/background.png')}
                         style={{
                             height: 350, 
-                            backgroundColor: 'rgba(0,0,0,.9)'
+                            backgroundColor: 'rgba(0,0,0,.9)',
+                            justifyContent: 'center',
+                            alignItems: 'center'
                         }}
-
                     >
+                        <Image source={require('../images/logo.png')} style={{
+                            width: 250,
+                            height: 250,
+                        }}/>
                     </ImageBackground>
                     <StatusBar backgroundColor="white" barStyle="light-content"/>
 
