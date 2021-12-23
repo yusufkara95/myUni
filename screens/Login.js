@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, ImageBackground, StatusBar, Image } from 'react-native'
 import { auth } from '../firebase'
-import HomeScreen from './HomeScreen'
+import HomeStack from './Home'
 
-const LoginScreen = () => {
+const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     
@@ -13,7 +13,7 @@ const LoginScreen = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             if(user) {
-                navigation.navigate("Home")
+                navigation.navigate({HomeStack})
             }
         })
         return unsubscribe
@@ -85,7 +85,7 @@ const LoginScreen = () => {
     )
 }
 
-export default LoginScreen
+export default SignUp
 
 const styles = StyleSheet.create({
     container: {

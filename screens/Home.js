@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const EventListScreen = () => {
+const Home = () => {
     return (
         <View>
-            <Text>Event List Screen</Text>
+            <Text>Home Screen</Text>
         </View>
     )
 }
 
-export default EventListScreen
+export default Home
 
 const styles = StyleSheet.create({})

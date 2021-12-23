@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { auth } from '../firebase'
 
-const HomeScreen = () => {
+const Home = () => {
 
     const navigation = useNavigation()
 
@@ -30,7 +30,7 @@ const HomeScreen = () => {
     )
 }
 
-export default HomeScreen
+export default Home
 
 const styles = StyleSheet.create({
     container: {

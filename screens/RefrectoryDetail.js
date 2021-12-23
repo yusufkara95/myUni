@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const RefrectoryScreen = () => {
+const RefrectoryDetailScreen = () => {
     return (
         <View>
-            <Text>Refrectory Screen</Text>
+            <Text>Refrectory Detail Screen</Text>
         </View>
     )
 }
 
-export default RefrectoryScreen
+export default RefrectoryDetailScreen
 
 const styles = StyleSheet.create({})
