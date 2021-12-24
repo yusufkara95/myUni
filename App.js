@@ -27,8 +27,8 @@ function HomeStack() {
 function EventStack() {
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="EventList" component={EventList} options={{title: 'Events'}}/>
             <Stack.Screen name="AddEvent" component={AddEvent} />
-            <Stack.Screen name="EventList" component={EventList} />
             <Stack.Screen name="EventDetail" component={EventDetail} />
         </Stack.Navigator>
     );
