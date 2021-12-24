@@ -1,17 +1,52 @@
-import React from 'react'
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar'
+import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, ScrollView, Button } from 'react-native'
+import firebase from '../database/firebase'
 
 const AddEvent = ({navigation}) => {
+
+    const [state, setState] = useState({
+        title: '',
+        description: ''
+    })
+
+    const handleChangeText = (name, value) => {
+        setState({...state, [name]: value})
+    }
+
+    const saveNewEvent = async () => {
+        if (state.name === '') {
+            alert('Geben Sie ein Titel ein')
+        } else {
+            try {
+                await firebase.db.collection('users').add({
+                    title: state.title,
+                    description: state.description
+                })
+                navigation.navigate('EventList');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.inputField}>
-                    <TextInput placeholder='Titel der Veranstaltung'/>
+                    <TextInput 
+                        placeholder='Titel der Veranstaltung' 
+                        onChangeText={(value) => handleChangeText('title', value)} />
             </View>
             <View style={styles.inputField}>
-                    <TextInput placeholder='Beschreibung'/>
+                    <TextInput 
+                        placeholder='Beschreibung' 
+                        onChangeText={(value) => handleChangeText('description', value)} />
             </View>
             <View>
-                <Button title="Event hinzufügen" />
+                <Button 
+                    title="Event hinzufügen"
+                    onPress={() => saveNewEvent()}
+                />
             </View>
         </ScrollView>
     )
