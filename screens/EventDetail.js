@@ -21,7 +21,7 @@ const EventDetail = (props) => {
 
     useEffect(() => {
         getUserById(props.route.params.userId);
-    });
+    }, []);
 
     return (
         <ScrollView>
