@@ -57,4 +57,5 @@ const styles = StyleSheet.create({
         fontFamily: 'raleway-bold',
         fontSize: 16
     },
+    
 })
