@@ -4,7 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React, { useState } from 'react';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as Font from 'expo-font'
+import AppLoading from 'expo-app-loading';
 
 import HomeScreen from './screens/Home';
 import EventList from './screens/EventList';
@@ -46,7 +49,27 @@ function RefrectoryStack() {
 
 const Tab = createBottomTabNavigator();
 
+const fetchFont = () => {
+  return Font.loadAsync({
+    'raleway': require('./assets/fonts/Raleway-Regular.ttf'),
+    'raleway-medium': require('./assets/fonts/Raleway-Medium.ttf'),
+    'raleway-bold': require('./assets/fonts/Raleway-Bold.ttf')
+  });
+};
+
 export default function App() {
+
+  const [fontLoaded, setfontLoaded] = useState(false);
+
+  if(!fontLoaded) {
+    return <AppLoading 
+      startAsync={fetchFont}
+      onError={() => console.log('Error')}
+      onFinish={() => {
+        setfontLoaded(true)
+      }}
+    />
+  }
 
       return (
         <NavigationContainer>

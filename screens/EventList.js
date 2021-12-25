@@ -39,7 +39,7 @@ const EventList = ({navigation}) => {
                             <ListItem.Chevron />
                             <Avatar source={{uri: 'https://uifaces.co/our-content/donated/vIqzOHXj.jpg',}} rounded/>
                             <ListItem.Content>
-                                <ListItem.Title>{user.title}</ListItem.Title>
+                                <ListItem.Title style={styles.titleBold}>{user.title}</ListItem.Title>
                                 <ListItem.Subtitle>{user.description}</ListItem.Subtitle>
                             </ListItem.Content>
                         </ListItem>
@@ -52,4 +52,9 @@ const EventList = ({navigation}) => {
 
 export default EventList
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    titleBold: {
+        fontFamily: 'raleway-bold',
+        fontSize: 16
+    },
+})
