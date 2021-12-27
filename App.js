@@ -4,17 +4,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React, { useState } from 'react';
+import firebase from './database/firebase';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading';
 
+import LoginScreen from './screens/Login'
 import HomeScreen from './screens/Home';
-import EventList from './screens/EventList';
-import EventDetail from './screens/EventDetail';
-import AddEvent from './screens/AddEvent';
-import RefrectoryList from './screens/RefrectoryList';
-import RefrectoryDetail from './screens/RefrectoryDetail';
+import EventList from './screens/Event/EventList';
+import EventDetail from './screens/Event/EventDetail';
+import AddEvent from './screens/Event/AddEvent';
+import RefrectoryList from './screens/Refrectory/RefrectoryList';
+import RefrectoryDetail from './screens/Refrectory/RefrectoryDetail';
 
 
 const Stack = createNativeStackNavigator();
@@ -58,18 +60,6 @@ const fetchFont = () => {
 };
 
 export default function App() {
-
-  const [fontLoaded, setfontLoaded] = useState(false);
-
-  if(!fontLoaded) {
-    return <AppLoading 
-      startAsync={fetchFont}
-      onError={() => console.log('Error')}
-      onFinish={() => {
-        setfontLoaded(true)
-      }}
-    />
-  }
 
       return (
         <NavigationContainer>
