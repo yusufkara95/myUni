@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function Refrectory() {
+export default function Account() {
     return (
         <View>
-            <Text>Mensa</Text>
+            <Text>Die besten Speißen der HRW</Text>
         </View>
     )
 }
