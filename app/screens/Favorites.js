@@ -1,14 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const Login = () => {
+export default function Favorites() {
     return (
         <View>
-            <Text></Text>
+            <Text>Meine Favorite Speißen</Text>
         </View>
     )
 }
-
-export default Login
-
-const styles = StyleSheet.create({})
