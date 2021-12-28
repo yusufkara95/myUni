@@ -1,14 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native'
+import Navigation from './app/navigations/Navigation';
 
 
 export default function App() {
-
-      return (
-        <View>
-          <Text>
-            Text  
-          </Text>
-        </View>
-      )
+      return <Navigation />
 };
