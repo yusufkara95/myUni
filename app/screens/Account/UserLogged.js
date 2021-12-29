@@ -1,7 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Button } from "react-native-elements"
-import Toast from "react-native-easy-toast"
 import * as firebase from "firebase"
 import Loading from "../../components/Loading"
 import InfoUser from '../../components/Account/InfoUser'
@@ -10,7 +9,6 @@ export default function UserLogged() {
     const [userInfo, setUserInfo] = useState({})
     const [loading, setLoading] = useState(false);
     const [loadingText, setLoadingText] = useState("");
-    const toastRef = useRef();
 
     useEffect(() => {
         (async () => {
@@ -23,14 +21,12 @@ export default function UserLogged() {
         <View style={styles.viewUserInfo}>
             {userInfo && <InfoUser userInfo={userInfo} />}
         
-            <Text>Account-Einstellungen</Text>
             <Button 
                 title='Abmelden'
                 buttonStyle={styles.buttonSignOut}
                 titleStyle={styles.buttonSignOutText}
                 onPress={() => firebase.auth().signOut()}
             />
-            <Toast ref={toastRef} position='center' opacity={0.9} />
             <Loading text={loadingText} isVisible={loading} />
         </View>
     )
