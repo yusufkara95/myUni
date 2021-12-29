@@ -14,11 +14,6 @@ export default function RefrectoryStack() {
                 component={Refrectory}
                 options={{ title: "Mensa" }}
             />
-            <Stack.Screen
-                name='add-food-refrectory'
-                component={AddRefrectoryFood}
-                options={{ title: "Add Food" }}
-            />
         </Stack.Navigator>
     )
 }
