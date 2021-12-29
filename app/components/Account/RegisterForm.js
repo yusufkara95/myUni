@@ -18,17 +18,13 @@ export default function RegisterForm(props) {
 
     const onSubmit = () => {
         if(isEmpty(formData.email) || isEmpty(formData.password) || isEmpty(formData.repeatPassword)) {
-            toastRef.current.show("Die Eingabefelder sind leer.");
-            //console.log("Die Eingabefelder sind leer.")
+            console.log("Die Eingabefelder sind leer.")
         } else if (!validateEmail(formData.email)) {
-            toastRef.current.show("E-Mail ist nicht korrekt!");
-            //console.log("E-Mail ist nicht korrekt!")
+            console.log("E-Mail ist nicht korrekt!")
         } else if (formData.password !== formData.repeatPassword) {
-            toastRef.current.show("Die Passwörter stimmen nicht überein!");
-            //console.log("Die Passwörter stimmen nicht überein!")
+            console.log("Die Passwörter stimmen nicht überein!")
         } else if (size(formData.password) < 6) {
-            toastRef.current.show("Dein Passwort muss größer als 6 Zeichen sein!");
-            //console.log("Dein Passwort muss größer als 6 Zeichen sein!")
+            console.log("Dein Passwort muss größer als 6 Zeichen sein!")
         } else {
             setLoading(true);
             firebase
@@ -40,7 +36,7 @@ export default function RegisterForm(props) {
             })
             .catch((err) => {
                 setLoading(false);
-                toastRef.current.show("Diese E-Mail wird schon verwendet!");
+                console.log("Diese E-Mail wird schon verwendet!")
             })
 
         }
