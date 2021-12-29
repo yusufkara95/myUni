@@ -9,6 +9,7 @@ import FavoritesStack from './FavoritesStack'
 import TopFoodsStack from './TopFoodsStack'
 import SearchStack from './SearchStack'
 import AccountStack from './AccountStack'
+import EventStack from './EventStack'
 
 
 const Tab = createBottomTabNavigator();
@@ -29,10 +30,10 @@ export default function Navigation() {
                     component={RefrectoryStack}
                     options={{ title: "Mensa", headerShown: false }}
                 />
-                <Tab.Screen 
-                    name="Favorites" 
-                    component={FavoritesStack} 
-                    options={{ title: "Favoriten", headerShown: false }}
+                 <Tab.Screen 
+                    name="Event" 
+                    component={EventStack}
+                    options={{ title: "Events", headerShown: false }}
                 />
                 <Tab.Screen 
                     name="Search" 
@@ -40,9 +41,9 @@ export default function Navigation() {
                     options={{ title: "Suche", headerShown: false }}
                 />
                 <Tab.Screen 
-                    name="Top-Foods" 
-                    component={TopFoodsStack}
-                    options={{ title: "TOP 5", headerShown: false }}
+                    name="Favorites" 
+                    component={FavoritesStack} 
+                    options={{ title: "Favoriten", headerShown: false }}
                 />
                 <Tab.Screen 
                     name="Account" 
@@ -67,8 +68,8 @@ function screenOptions(route, color) {
         case "Search": 
             iconName = "search"
             break;
-        case "Top-Foods": 
-            iconName = "star"
+        case "Event": 
+            iconName = "calendar"
             break;
         case "Account": 
             iconName = "person-circle"
