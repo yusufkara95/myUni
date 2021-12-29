@@ -21,9 +21,9 @@ export default function LoginForm(props) {
 
     const onSubmit = () => {
         if(isEmpty(formData.email) || isEmpty(formData.password)) {
-            toastRef.current.show("Beide Eingabefelder müssen ausgefüllt sein!")
+            console.log("Beide Eingabefelder müssen ausgefüllt sein!")
         } else if (!validateEmail(formData.email)) {
-            toastRef.current.show("Deine E-Mail ist nicht korrekt!")
+            console.log("Deine E-Mail ist nicht korrekt!")
         } else {
             setLoading(true)
             firebase
@@ -35,7 +35,7 @@ export default function LoginForm(props) {
             })
             .catch(() => {
                 setLoading(false)
-                toastRef.current.show("E-Mail oder dein Passwort ist falsch!")
+                console.log("E-Mail oder dein Passwort ist falsch!")
             })
         }
     }

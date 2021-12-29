@@ -1,27 +1,24 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Avatar } from "react-native-elements"
+import * as firebase from "firebase"
 
 
 export default function InfoUser(props) {
-    const {userInfo: {photoURL, displayName, email}} = props;
-
-    console.log(photoURL)
-    console.log(displayName)
-    console.log(email)
+    const {userInfo: {uid, photoURL, displayName, email}} = props;
 
     return (
         <View style={styles.viewUserInfo}>
             <Avatar 
                 rounded
                 size="large"
-                showAccessory
                 containerStyle={styles.userInfoAvatar}
                 source={photoURL ? { uri: photoURL } : require("../../../assets/images/avatar-default.jpg")}
-            />
+            >
+            </Avatar>
             <View>
-                <Text style={styles.displayName}>{displayName ? displayName : "Anonym"}</Text>
-                <Text>yusufkara@hrw.de</Text>
+                <Text style={styles.displayName}>Hallo,</Text>
+                <Text>{email}</Text>
             </View>
         </View>
     )
