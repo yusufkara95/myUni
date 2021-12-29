@@ -35,6 +35,7 @@ export default function LoginForm(props) {
             })
             .catch(() => {
                 setLoading(false)
+                alert("E-Mail oder dein Passwort ist falsch!")
                 console.log("E-Mail oder dein Passwort ist falsch!")
             })
         }
