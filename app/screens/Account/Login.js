@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StyleSheet, View, ScrollView, Text, Image} from "react-native"
 import { Divider } from "react-native-elements"
 import { useNavigation } from "@react-navigation/native"
+import Toast from "react-native-easy-toast"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
+
+import LoginForm from "../../components/Account/LoginForm";
 
 export default  function Login() {
+    const toastRef = useRef();
     return (
-        <ScrollView>
+        <KeyboardAwareScrollView>
             <Image 
                 source={require("../../../assets/images/logo.png")}
                 style={styles.logo}
             />
             <View style={styles.viewContainer}>
-                <Text>Login Form</Text>
+                <LoginForm toastRef={toastRef} />
                 <CreateAccount>Account erstellen</CreateAccount>
             </View>
-            <Divider style={styles.divider} />
-        </ScrollView>
+            <Toast ref={toastRef} position="center" opacity={0.9} />
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -52,9 +57,5 @@ const styles = StyleSheet.create({
     buttonRegister: {
         color: "#00a2e5",
         fontWeight: "bold",
-    },
-    divider: {
-        backgroundColor: "#00a2e5",
-        margin: 40,
     },
 })
