@@ -4,8 +4,9 @@ import { Icon } from "react-native-elements"
 import { firebaseApp } from "../../utils/firebase"
 import firebase from 'firebase/app'
 
-export default function Refrectory() {
-    const [user, setUser] = useState(null)
+export default function Refrectory(props) {
+    const {navigation} = props;
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((userInfo) => {
@@ -17,15 +18,7 @@ export default function Refrectory() {
         <View style={styles.viewBody}>
             <Text>Mensa</Text>
 
-            {user && (
-                <Icon 
-                reverse
-                type="ionicon"
-                name="add"
-                color="#00a2e5"
-                containerStyle={styles.buttonAddContainer}
-            />
-            )}
+            
 
         </View>
     )
