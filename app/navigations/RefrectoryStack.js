@@ -1,7 +1,8 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import Refrectory from '../screens/Refrectory'
+import Refrectory from '../screens/Refrectory/Refrectory'
+import AddRefrectoryFood from '../screens/Refrectory/AddRefrectoryFood';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +13,11 @@ export default function RefrectoryStack() {
                 name='refrectory'
                 component={Refrectory}
                 options={{ title: "Mensa" }}
+            />
+            <Stack.Screen
+                name='add-food-refrectory'
+                component={AddRefrectoryFood}
+                options={{ title: "Add Food" }}
             />
         </Stack.Navigator>
     )
