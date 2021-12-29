@@ -4,13 +4,17 @@ import { Input, Icon, Button } from "react-native-elements"
 import { validateEmail } from "../../utils/validations"
 import { size, isEmpty } from "lodash"
 import { findFocusedRoute } from '@react-navigation/native'
-
+import * as firebase from "firebase"
+import { useNavigation } from "@react-navigation/native"
+import Loading from "../Loading"
 
 export default function RegisterForm(props) {
     const { toastRef } = props;
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
     const [formData, setFormData] = useState(defaultFormValue());
+    const [loading, setLoading] = useState(false);
+    const navigation = useNavigation();
 
     const onSubmit = () => {
         if(isEmpty(formData.email) || isEmpty(formData.password) || isEmpty(formData.repeatPassword)) {
@@ -26,7 +30,19 @@ export default function RegisterForm(props) {
             toastRef.current.show("Dein Passwort muss größer als 6 Zeichen sein!");
             //console.log("Dein Passwort muss größer als 6 Zeichen sein!")
         } else {
-            console.log("OK!")
+            setLoading(true);
+            firebase
+            .auth()
+            .createUserWithEmailAndPassword(formData.email, formData.password)
+            .then(() => {
+                setLoading(false);
+                navigation.navigate("account");
+            })
+            .catch((err) => {
+                setLoading(false);
+                toastRef.current.show("Diese E-Mail wird schon verwendet!");
+            })
+
         }
     }
 
@@ -62,6 +78,7 @@ export default function RegisterForm(props) {
                 buttonStyle={styles.buttonRegister}
                 onPress={onSubmit}
             />
+            <Loading isVisible={loading} text="Account wird erstellt..." />
         </View>
     )
 }
