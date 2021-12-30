@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, ScrollView, Alert, Dimensions } from 'react-native'
-import {Icon, Avatar, Input, Button} from 'react-native-elements'
-import * as Location from "expo-location"
-import MapView from "react-native-maps"
-import Modal from "../Modal"
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, ScrollView, Alert, Dimensions } from "react-native";
+import { Icon, Avatar, Image, Input, Button } from "react-native-elements";
+//import * as Location from "expo-location";
+//import MapView  from "react-native-maps";
+//import Modal from "../Modal";
 
 import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
@@ -12,48 +12,76 @@ import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
 
 export default function AddEventForm(props) {
-    const {setIsLoading, navigation} = props;
+    const { setIsLoading, navigation } = props;
     const [eventName, setEventName] = useState("");
-    const [eventDescription, setEventDescription] = useState("");
     const [eventAdress, setEventAdress] = useState("");
-    const [isVisibleMap, setIsVisibleMap] = useState(false)
-    const [locationEvent, setLocationEvent] = useState(null)
+    const [eventDescription, setEventDescription] = useState("");
 
-
+    //const [isVisibleMap, setIsVisibleMap] = useState(false);
+    //const [eventLocation, setEventLocation] = useState(null);
 
     const addEvent = () => {
-        console.log("OK");
-        console.log("eventName: " + eventName)
-        console.log("eventDescription: " + eventDescription)
-        console.log("eventAdress: " + eventAdress)
-        console.log(locationEvent)
-    }
+        if (!eventName || !eventAdress || !eventDescription) {
+            alert("Sie müssen alle Felder ausfüllen!");
+            console.log("Sie müssen alle Felder ausfüllen!");
+        } else {
+            setIsLoading(true);
+            db.collection("events")
+                .add({
+                    name: eventName,
+                    address: eventAdress,
+                    description: eventDescription,
+                    likes: 0,
+                    ratingTotal: 0,
+                    quantityVoting: 0,
+                    createAt: new Date(),
+                    createBy: firebase.auth().currentUser.uid,
+            })
+            .then(() => {
+                setIsLoading(false);
+                navigation.navigate("event");
+            })
+            .catch(() => {
+                setIsLoading(false);
+                alert("Es ist ein Fehler beim Erstellen eines Events aufgetreten!");
+                console.log("Es ist ein Fehler beim Erstellen eines Events aufgetreten!");
+            });
+        }
+    };
 
     return (
         <ScrollView style={styles.scrollView}>
-            <FormAdd 
+            <FormAdd
                 setEventName={setEventName}
-                setEventDescription={setEventDescription}
                 setEventAdress={setEventAdress}
-                setIsVisibleMap={setIsVisibleMap}
-                locationEvent={locationEvent}
+                setEventDescription={setEventDescription}
+                //setIsVisibleMap={setIsVisibleMap}
+                //locationEvent={locationEvent}
             />
-            <Button 
-                title='Event erstellen'
+            <Button
+                title="Event erstellen"
                 onPress={addEvent}
                 buttonStyle={styles.buttonAddEvent}
             />
-            <Map 
-                isVisibleMap={isVisibleMap} 
+            {/*
+            <Map
+                isVisibleMap={isVisibleMap}
                 setIsVisibleMap={setIsVisibleMap}
                 setLocationEvent={setLocationEvent}
             />
+            */}
         </ScrollView>
-    )
-}
+    );
+    }
 
-function FormAdd(props) {
-    const {setEventName, setEventDescription, setEventAdress, setIsVisibleMap} = props;
+    function FormAdd(props) {
+        const {
+            setEventName,
+            setEventAdress,
+            setEventDescription,
+            //setIsVisibleMap,
+            //locationEvent,
+        } = props;
     
     return (
         <View style={styles.viewForm}>
@@ -76,13 +104,15 @@ function FormAdd(props) {
                     type: "ionicon",
                     name: "map",
                     color: "#C2C2C2",
-                    onPress: () => setIsVisibleMap(true)
+                    //onPress: () => setIsVisibleMap(true)
                 }}
             />
         </View>
     )
 } 
 
+
+{/*
 function Map(props) {
     const {isVisibleMap, setIsVisibleMap, setLocationEvent} = props;
     const [location, setLocation] = useState(null);
@@ -95,7 +125,6 @@ function Map(props) {
                 console.log("Wir brauchen die Berichtigung für dein GPS, um einen Event zu erstellen.")
             } else {
                 const loc = await Location.getCurrentPositionAsync({});
-                console.log(loc)
                 setLocation({
                     latitude: loc.coords.latitude,
                     longitude: loc.coords.longitude,
@@ -103,8 +132,8 @@ function Map(props) {
                     longitudeDelta: 0.001,
                 });
             }
-        })()
-    }, [])
+        })();
+    }, []);
 
     const confirmLocation = () => {
         setLocationEvent(location);
@@ -117,10 +146,10 @@ function Map(props) {
             <View>
                 {location && (
                     <MapView
-                    style={styles.mapStyle}
-                    initialRegion={location}
-                    showsUserLocation={true}
-                    onRegionChange={(region) => setLocation(region)}
+                        style={styles.map}
+                        initialRegion={location}
+                        showsUserLocation={true}
+                        onRegionChange={(region) => setLocation(region)}
                     >
                         <MapView.Marker 
                             coordinate={{
@@ -149,6 +178,7 @@ function Map(props) {
         </Modal>
     )
 }
+*/}
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -171,7 +201,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#00a2e5",
         margin: 20,
     },
-    mapStyle: {
+    map: {
         width: "100%",
         height: 550,
     }, 
@@ -186,10 +216,10 @@ const styles = StyleSheet.create({
     viewMapButtonCancel: {
         backgroundColor: "#A60D0D",
     }, 
-    viewMapBtnContainerSave: {
+    viewMapButtonContainerSave: {
         paddingRight: 5,
     },
-    viewMapBtnSave: {
+    viewMapButtonSave: {
         backgroundColor: "#00a680",
     },
     
