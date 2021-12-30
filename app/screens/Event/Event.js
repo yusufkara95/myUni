@@ -3,10 +3,19 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Icon } from "react-native-elements"
 import { firebaseApp } from "../../utils/firebase"
 import firebase from 'firebase/app'
+import "firebase/firestore"
+
+import EventsList from '../../components/Event/EventsList'
+
+const db = firebase.firestore(firebaseApp)
 
 export default function Refrectory(props) {
     const {navigation} = props;
     const [user, setUser] = useState(null);
+    const [events, setEvents] = useState([]);
+    const [totalEvents, setTotalEvents] = useState(0);
+    const [startEvents, setStartEvents] = useState(null);
+    const limitEvents = 10;
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((userInfo) => {
@@ -14,9 +23,37 @@ export default function Refrectory(props) {
         });
     })
 
+    useEffect(() => {
+        db
+        .collection("events")
+        .get()
+        .then((snap) => {
+            setTotalEvents(snap.size)
+        });
+
+        const resultEvents = [];
+
+        db.collection("events")
+        .orderBy("createAt")
+        .limit(limitEvents)
+        .get()
+        .then((response) => {
+            setStartEvents(response.docs[response.docs.length-1]);
+
+            response.forEach((doc) => {
+                //console.log(doc.data())
+                const event = doc.data();
+                event.id = doc.id;
+                resultEvents.push(event);
+            });
+            setEvents(resultEvents);
+        })
+
+    }, [])
+
     return (
         <View style={styles.viewBody}>
-            <Text>Event</Text>
+            <EventsList events={events} />
 
             {user && (
                 <Icon 
