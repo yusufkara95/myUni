@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
-import { Image } from 'react-native-elements'
 import { size } from "lodash"
 import { useNavigation } from "@react-navigation/native";
 
@@ -31,11 +30,11 @@ export default function EventsList(props) {
 
 function Event(props) {
     const {event, navigation} = props;
-    const {id, images, name, address, description} = event.item;
+    const {id, name, address, description} = event.item;
 
 
     const goEvent = () => {
-        navigation.navigate("event-detail", {
+        navigation.navigate("eventdetail", {
             id,
             name,
         });

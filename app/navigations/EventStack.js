@@ -20,10 +20,7 @@ export default function EventStack() {
                 component={AddEvent}
                 options={{ title: "Event hinzufügen" }}
             />
-            <Stack.Screen
-                name="event-detail"
-                component={EventDetail}
-            />
+            <Stack.Screen name="eventdetail" component={EventDetail} />
         </Stack.Navigator>
     )
 }

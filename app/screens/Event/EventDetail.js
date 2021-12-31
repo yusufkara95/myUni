@@ -15,7 +15,7 @@ export default function EventDetail(props) {
     const [ event, setEvent] = useState(null);
     const [ rating, setRating] = useState(0);
 
-    navigation.setOptions({ title: name })
+    navigation.setOptions({ title: name });
 
     useEffect(() => {
         db.collection("events")

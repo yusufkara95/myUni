@@ -31,7 +31,7 @@ export default function AddEventForm(props) {
                     name: eventName,
                     address: eventAdress,
                     description: eventDescription,
-                    likes: 0,
+                    rating: 0,
                     ratingTotal: 0,
                     quantityVoting: 0,
                     createAt: new Date(),

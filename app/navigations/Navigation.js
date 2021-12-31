@@ -30,20 +30,10 @@ export default function Navigation() {
                     component={RefrectoryStack}
                     options={{ title: "Mensa", headerShown: false }}
                 />
-                 <Tab.Screen 
+                <Tab.Screen 
                     name="Event" 
                     component={EventStack}
                     options={{ title: "Events", headerShown: false }}
-                />
-                <Tab.Screen 
-                    name="Search" 
-                    component={SearchStack}
-                    options={{ title: "Suche", headerShown: false }}
-                />
-                <Tab.Screen 
-                    name="Favorites" 
-                    component={FavoritesStack} 
-                    options={{ title: "Favoriten", headerShown: false }}
                 />
                 <Tab.Screen 
                     name="Account" 
