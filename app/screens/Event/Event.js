@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
+import {useFocusEffect} from '@react-navigation/native'
 import { StyleSheet, Text, View } from 'react-native'
 import { Icon } from "react-native-elements"
 import { firebaseApp } from "../../utils/firebase"
@@ -23,57 +24,39 @@ export default function Refrectory(props) {
             setUser(userInfo)
         });
     })
-
-    useEffect(() => {
-        db
-        .collection("events")
-        .get()
-        .then((snap) => {
-            setTotalEvents(snap.size)
-        });
-
-        const resultEvents = [];
-
-        db.collection("events")
-        .orderBy("createAt")
-        .limit(limitEvents)
-        .get()
-        .then((response) => {
-            setStartEvents(response.docs[response.docs.length-1]);
-
-            response.forEach((doc) => {
-                //console.log(doc.data())
-                const event = doc.data();
-                event.id = doc.id;
-                resultEvents.push(event);
+    
+    useFocusEffect(
+        useCallback(() => {
+            db.collection("events")
+                .get()
+                .then((snap) => {
+                    setTotalEvents(snap.size);
             });
-            setEvents(resultEvents);
-        })
+    
+            const resultEvents = [];
+    
+            db.collection("events")
+                .orderBy("createAt")
+                .limit(limitEvents)
+                .get()
+                .then((response) => {
+                    setStartEvents(response.docs[response.docs.length - 1]);
+    
+                response.forEach((doc) => {
+                    const event = doc.data();
+                    event.id = doc.id;
+                    resultEvents.push(event);
+                });
+                    setEvents(resultEvents);
+                });
+            }, [])
+        );
 
-    }, [])
-
-    return (
-        <View style={styles.viewBody}>
-            <EventsList events={events} />
-
-            {user && (
-                <Icon 
-                reverse
-                type="ionicon"
-                name="add"
-                color="#00a2e5"
-                containerStyle={styles.buttonAddContainer}
-                onPress={() => navigation.navigate("add-event")}
-            />
-            )}
-
-        </View>
-    )
-}
+    
 
 const loadMoreEvents = () => {
     const resultEvents = [];
-    event.length < totalEvents && setIsLoading(true);
+    events.length < totalEvents && setIsLoading(true);
 
     db.collection("events")
     .orderBy("createAt")
@@ -82,19 +65,39 @@ const loadMoreEvents = () => {
     .get()
     .then(response => {        
         if(response.docs.length > 0) {
-            setStartEvents(response.docs.length - 1);
+            setStartEvents(response.docs[response.docs.length - 1]);
         } else {
             setIsLoading(false);
         }
+        
         response.forEach((doc) => {
             const event = doc.data();
             event.id = doc.id;
-            resultEvents.push({ event });
+            resultEvents.push( event );
         });
 
-        setEvents([...event])
+        setEvents([...events, ...resultEvents])
     })
 }
+
+return (
+    <View style={styles.viewBody}>
+        <EventsList events={events} loadMoreEvents={loadMoreEvents} isLoading={isLoading} />
+
+        {user && (
+            <Icon 
+            reverse
+            type="ionicon"
+            name="add"
+            color="#00a2e5"
+            containerStyle={styles.buttonAddContainer}
+            onPress={() => navigation.navigate("add-event")}
+        />
+        )}
+
+    </View>
+)
+        }
 
 const styles = StyleSheet.create({
     viewBody: {
