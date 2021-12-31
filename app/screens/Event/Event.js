@@ -15,6 +15,7 @@ export default function Refrectory(props) {
     const [events, setEvents] = useState([]);
     const [totalEvents, setTotalEvents] = useState(0);
     const [startEvents, setStartEvents] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
     const limitEvents = 10;
 
     useEffect(() => {
@@ -68,6 +69,31 @@ export default function Refrectory(props) {
 
         </View>
     )
+}
+
+const loadMoreEvents = () => {
+    const resultEvents = [];
+    event.length < totalEvents && setIsLoading(true);
+
+    db.collection("events")
+    .orderBy("createAt")
+    .startAfter(startEvents.data().createAt)
+    .limit(limitEvents)
+    .get()
+    .then(response => {        
+        if(response.docs.length > 0) {
+            setStartEvents(response.docs.length - 1);
+        } else {
+            setIsLoading(false);
+        }
+        response.forEach((doc) => {
+            const event = doc.data();
+            event.id = doc.id;
+            resultEvents.push({ event });
+        });
+
+        setEvents([...event])
+    })
 }
 
 const styles = StyleSheet.create({
