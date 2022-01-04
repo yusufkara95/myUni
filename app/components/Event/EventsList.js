@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { size } from "lodash"
 import { useNavigation } from "@react-navigation/native";
+import { ListItem, Icon } from 'react-native-elements';
 
 export default function EventsList(props) {
     const {events, loadMoreEvents, isLoading} = props;
@@ -42,19 +43,23 @@ function Event(props) {
 
     return (
         <TouchableOpacity onPress={goEvent}>
-            <View style={styles.viewEvent}>
-                <View style={styles.viewEventIcon}>
-                    {/* Hier kommen Icons je nach Kategorie der Veranstaltung */}
-                    {/* Party -> Partyhut */}
-                    {/* Hochschuleveranstaltung -> Gebäude oder Info */}
-                </View>
-                <View>
-                    <Text style={styles.eventName}>{name}</Text>
-                    <Text style={styles.eventAdress}>{address}</Text>
-                    {/* Gedanke generell die Beschreibung rauszunehmen, um es im EventDetail vollständig anzuzeigen */}
-                    <Text style={styles.eventDescription}>{description.substr(0, 40)}...</Text>
-                </View>
-            </View>
+            <ListItem bottomDivider >
+            <Icon
+                reverse
+                name='megaphone'
+                type='ionicon'
+                color='#00a2e5'
+            />
+            <ListItem.Content>
+                <ListItem.Title>{name}</ListItem.Title>
+                <ListItem.Subtitle>{address}</ListItem.Subtitle>
+            </ListItem.Content>
+            <ListItem.Chevron />
+        </ListItem>
+
+
+
+            
         </TouchableOpacity>
     )
 }
@@ -84,8 +89,11 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     viewEvent: {
+        backgroundColor: "#F4F4F4",
         flexDirection: "row",
-        margin: 10
+        margin: 10,
+        padding: 10,
+        borderRadius: 10
     },
     viewEventIcon: {
         marginRight: 15,
