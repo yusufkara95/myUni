@@ -31,9 +31,9 @@ export default function AddEventForm(props) {
                     name: eventName,
                     address: eventAdress,
                     description: eventDescription,
-                    rating: 0,
-                    ratingTotal: 0,
-                    quantityVoting: 0,
+                    acceptEvent: 0,
+                    declineEvent: 0,
+                    totalCount: 0,
                     createAt: new Date(),
                     createBy: firebase.auth().currentUser.uid,
             })
