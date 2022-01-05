@@ -31,7 +31,7 @@ export default function EventsList(props) {
 
 function Event(props) {
     const {event, navigation} = props;
-    const {id, name, address, description} = event.item;
+    const {id, name, timeHour, timeMinute, day, month, year} = event.item;
 
 
     const goEvent = () => {
@@ -51,8 +51,20 @@ function Event(props) {
                 color='#00a2e5'
             />
             <ListItem.Content>
-                <ListItem.Title>{name}</ListItem.Title>
-                <ListItem.Subtitle>{address}</ListItem.Subtitle>
+                <ListItem.Title style={styles.title}>{name}</ListItem.Title>
+                <View style={{flexDirection: "row"}}>
+
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <Icon name='time' type='ionicon' color='#00a2e5' size="16" />
+                        <Text style={styles.time}> {timeHour}:{timeMinute}   </Text>
+                </View>
+
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <Icon name='calendar' type='ionicon' color='#00a2e5' size="16" />
+                        <Text style={styles.date}> {day}.{month}.{year} </Text>
+                </View>
+                
+                </View>
             </ListItem.Content>
             <ListItem.Chevron />
         </ListItem>
@@ -114,5 +126,19 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 20,
         alignItems: "center",
+    },
+    title: {
+        fontWeight: "600",
+        paddingBottom: 5
+    },
+    time: {
+        fontSize: 16,
+        color: "#00a2e5",
+        fontWeight: "600"
+    }, 
+    date: {
+        fontSize: 16,
+        color: "#00a2e5",
+        fontWeight: "600"
     }
 })
