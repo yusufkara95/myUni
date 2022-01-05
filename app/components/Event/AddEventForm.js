@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView, Alert, Dimensions } from "react-native";
+import { StyleSheet, View, ScrollView, Text, TextInput, Alert, Dimensions } from "react-native";
 import { Icon, Avatar, Image, Input, Button } from "react-native-elements";
 //import * as Location from "expo-location";
 //import MapView  from "react-native-maps";
@@ -16,6 +16,11 @@ export default function AddEventForm(props) {
     const [eventName, setEventName] = useState("");
     const [eventAdress, setEventAdress] = useState("");
     const [eventDescription, setEventDescription] = useState("");
+    const [eventTimeHour, setEventTimeHour] = useState("");
+    const [eventTimeMinute, setEventTimeMinute] = useState("");
+    const [eventDay, setEventDay] = useState("");
+    const [eventMonth, setEventMonth] = useState("");
+    const [eventYear, setEventYear] = useState("");
 
     //const [isVisibleMap, setIsVisibleMap] = useState(false);
     //const [eventLocation, setEventLocation] = useState(null);
@@ -31,9 +36,12 @@ export default function AddEventForm(props) {
                     name: eventName,
                     address: eventAdress,
                     description: eventDescription,
-                    acceptEvent: 0,
-                    declineEvent: 0,
-                    totalCount: 0,
+                    votingTotal: 0,
+                    timeHour: eventTimeHour,
+                    timeMinute: eventTimeMinute,
+                    day: eventDay,
+                    month: eventMonth,
+                    year: eventYear,
                     createAt: new Date(),
                     createBy: firebase.auth().currentUser.uid,
             })
@@ -55,6 +63,11 @@ export default function AddEventForm(props) {
                 setEventName={setEventName}
                 setEventAdress={setEventAdress}
                 setEventDescription={setEventDescription}
+                setEventTimeHour={setEventTimeHour}
+                setEventTimeMinute={setEventTimeMinute}
+                setEventDay={setEventDay}
+                setEventMonth={setEventMonth}
+                setEventYear={setEventYear}
                 //setIsVisibleMap={setIsVisibleMap}
                 //locationEvent={locationEvent}
             />
@@ -79,6 +92,11 @@ export default function AddEventForm(props) {
             setEventName,
             setEventAdress,
             setEventDescription,
+            setEventTimeHour,
+            setEventTimeMinute,
+            setEventDay,
+            setEventMonth,
+            setEventYear
             //setIsVisibleMap,
             //locationEvent,
         } = props;
@@ -107,7 +125,63 @@ export default function AddEventForm(props) {
                     //onPress: () => setIsVisibleMap(true)
                 }}
             />
-        </View>
+
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                height:100
+            }}>
+                <View style={styles.inputWrap}>
+                    <Input
+                        placeholder="Stunden"
+                        keyboardType = 'numeric'
+                        maxLength={2}
+                        onChange={(e) => setEventTimeHour(e.nativeEvent.text)}
+                    />
+                </View>
+                <View style={styles.inputWrap}>
+                    <Input
+                        placeholder="Minuten"
+                        keyboardType = 'numeric'
+                        maxLength={2}
+                        onChange={e => setEventTimeMinute(e.nativeEvent.text)}
+                    />
+                </View>
+            </View>
+
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                height:100
+            }}>
+
+            <View style={styles.inputWrap}>
+                <Input
+                                placeholder="Tag"
+                                keyboardType = 'numeric'
+                                maxLength={2}
+                                onChange={e => setEventDay(e.nativeEvent.text)}
+                            />
+                </View>
+
+                <View style={styles.inputWrap}>
+                <Input
+                                placeholder="Monat"
+                                keyboardType = 'numeric'
+                                maxLength={2}
+                                onChange={e => setEventMonth(e.nativeEvent.text)}
+                            />
+                </View>
+                <View style={styles.inputWrap}>
+                <Input
+                                placeholder="Jahr"
+                                keyboardType = 'numeric'
+                                maxLength={4}
+                                onChange={e => setEventYear(e.nativeEvent.text)}
+                            />
+                </View>
+            </View>
+            </View>
     )
 } 
 
@@ -221,6 +295,11 @@ const styles = StyleSheet.create({
     },
     viewMapButtonSave: {
         backgroundColor: "#00a680",
+    },
+    inputWrap: {
+        flex: 1,
+        justifyContent: 'space-between',
+        flexDirection: 'column'
     },
     
 })
