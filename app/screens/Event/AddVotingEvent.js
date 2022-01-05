@@ -16,7 +16,6 @@ export default function AddVotingEvent(props) {
     const [ isLoading, setIsLoading] = useState(false)
 
     function handleButton() {
-        setAcceptEvent() + 1 ;
         addVoting();
     }
 
