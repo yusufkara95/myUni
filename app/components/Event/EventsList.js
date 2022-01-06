@@ -55,12 +55,12 @@ function Event(props) {
                 <View style={{flexDirection: "row"}}>
 
                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='time' type='ionicon' color='#00a2e5' size="16" />
+                        <Icon name='time' type='ionicon' color='#00a2e5' size={16} />
                         <Text style={styles.time}> {timeHour}:{timeMinute}   </Text>
                 </View>
 
                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='calendar' type='ionicon' color='#00a2e5' size="16" />
+                        <Icon name='calendar' type='ionicon' color='#00a2e5' size={16} />
                         <Text style={styles.date}> {day}.{month}.{year} </Text>
                 </View>
                 

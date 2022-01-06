@@ -70,11 +70,11 @@ function InfoEvent(props) {
             <Text style={styles.descriptionEvent}>{description}</Text>
 
         <View style={{flexDirection: "row", alignItems: "center"}}>
-            <Icon reverse name='calendar' type='ionicon' color='#00a2e5' size="18" />
+            <Icon reverse name='calendar' type='ionicon' color='#00a2e5' size={18} />
             <Text style={styles.date}>{eventDay}.{eventMonth}.{eventYear}</Text>
         </View>
         <View style={{flexDirection: "row", alignItems: "center"}}>
-            <Icon reverse name='time' type='ionicon' color='#00a2e5' size="18" />
+            <Icon reverse name='time' type='ionicon' color='#00a2e5' size={18} />
             <Text style={styles.time}>{timeHour}:{timeMinute} Uhr</Text>
         </View>
         </View>
