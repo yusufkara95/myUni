@@ -72,7 +72,6 @@ function Event(props) {
             </ListItem.Content>
             <ListItem.Chevron />
         </ListItem>
-  
         </TouchableOpacity>
     )
 }
