@@ -17,11 +17,11 @@ export default function AddReviewRestaurant(props) {
 
     const addComment = () => {
         if (!rating) {
-            alert("No has dado ninguna putuacion");
+            alert("Keine Eingabe gefunden!");
         } else if (!title) {
-            alert("El titulo es oblogatorio");
+            alert("Kein Titel gefunden");
         } else if (!review) {
-            alert("El comentatio es obligatorio");
+            alert("Kein Kommentar abgegben");
         } else {
             setIsLoading(true);
             const user = firebase.auth().currentUser;
@@ -40,7 +40,7 @@ export default function AddReviewRestaurant(props) {
             updateFood
         })
         .catch(() => {
-            alert("Error al enviar la review");
+            alert("Ein Fehler bei der Bewertung");
             setIsLoading(false);
         });
         }
