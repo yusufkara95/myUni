@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { size } from "lodash"
 import { useNavigation } from "@react-navigation/native";
-import { ListItem, Icon } from 'react-native-elements';
+import { ListItem, Icon, Image } from 'react-native-elements';
 
 export default function EventsList(props) {
     const {events, loadMoreEvents, isLoading} = props;
@@ -31,7 +31,7 @@ export default function EventsList(props) {
 
 function Event(props) {
     const {event, navigation} = props;
-    const {id, name, timeHour, timeMinute, day, month, year} = event.item;
+    const {id, name, timeHour, timeMinute, day, month, year, votingTotal} = event.item;
 
 
     const goEvent = () => {
@@ -44,7 +44,7 @@ function Event(props) {
     return (
         <TouchableOpacity onPress={goEvent}>
             <ListItem bottomDivider >
-            <Icon
+            <Image
                 reverse
                 name='megaphone'
                 type='ionicon'
@@ -65,13 +65,14 @@ function Event(props) {
                 </View>
                 
                 </View>
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <Icon name='body' type='ionicon' color='#00a2e5' size={16} />
+                        <Text style={styles.totalMember}> {votingTotal} Teilnehmer </Text>
+                </View>
             </ListItem.Content>
             <ListItem.Chevron />
         </ListItem>
-
-
-
-            
+  
         </TouchableOpacity>
     )
 }
@@ -137,6 +138,11 @@ const styles = StyleSheet.create({
         fontWeight: "600"
     }, 
     date: {
+        fontSize: 16,
+        color: "#00a2e5",
+        fontWeight: "600"
+    },
+    totalMember: {
         fontSize: 16,
         color: "#00a2e5",
         fontWeight: "600"

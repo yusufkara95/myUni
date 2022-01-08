@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import Loading from '../../components/Loading';
+import Map from "../../components/Map"
 
 import {firebaseApp} from "../../utils/firebase"
 import firebase from 'firebase/app';
@@ -8,6 +9,7 @@ import "firebase/firestore"
 import { Button, Icon } from 'react-native-elements';
 
 import ListSubscriber from '../../components/Event/ListSubscriber';
+import { map } from 'lodash';
 
 const db =  firebase.firestore(firebaseApp);
 
@@ -40,6 +42,8 @@ export default function EventDetail(props) {
             <InfoEvent
                 name={event.name}
                 description={event.description}
+                location={event.location}
+                address={event.address}
                 votingTotal={event.votingTotal}
                 timeHour={event.timeHour}
                 timeMinute={event.timeMinute}
@@ -57,7 +61,7 @@ export default function EventDetail(props) {
 }
 
 function InfoEvent(props) {
-    const {name, description, votingTotal, timeHour, timeMinute, eventDay, eventMonth, eventYear} = props;
+    const {name, description, location, address, votingTotal, timeHour, timeMinute, eventDay, eventMonth, eventYear} = props;
 
     return (
         <View>
@@ -67,9 +71,12 @@ function InfoEvent(props) {
 
             </View>
         <View style={styles.eventBody}>
+            <Text style={styles.nameEvent}>{name}</Text>
             <Text style={styles.descriptionEvent}>{description}</Text>
 
-        <View style={{flexDirection: "row", alignItems: "center"}}>
+            <Map location={location} name={name} height={100} />
+
+        <View style={{flexDirection: "row", alignItems: "center", paddingTop: 20}}>
             <Icon reverse name='calendar' type='ionicon' color='#00a2e5' size={18} />
             <Text style={styles.date}>{eventDay}.{eventMonth}.{eventYear}</Text>
         </View>
@@ -77,7 +84,12 @@ function InfoEvent(props) {
             <Icon reverse name='time' type='ionicon' color='#00a2e5' size={18} />
             <Text style={styles.time}>{timeHour}:{timeMinute} Uhr</Text>
         </View>
+        <View style={{flexDirection: "row", alignItems: "center", paddingBottom: 5}}>
+            <Icon reverse name='map' type='ionicon' color='#00a2e5' size={18} />
+            <Text style={styles.time}>{address}</Text>
         </View>
+        </View>
+    
         </View>
     )
 }
@@ -89,8 +101,6 @@ const styles = StyleSheet.create({
     },
     imageView: {
         height: 250,
-        borderBottomRightRadius: 15,
-        borderBottomLeftRadius: 15,
         backgroundColor: "#00a2e5", 
         alignItems: "center",
         justifyContent: "center"

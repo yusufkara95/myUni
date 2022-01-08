@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, ScrollView, Text, TextInput, Alert, Dimensions } from "react-native";
 import { Icon, Avatar, Image, Input, Button } from "react-native-elements";
-//import * as Location from "expo-location";
-//import MapView  from "react-native-maps";
-//import Modal from "../Modal";
+import * as Location from "expo-location";
+import MapView  from "react-native-maps";
+import Modal from "../Modal";
 
 import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
@@ -22,8 +22,8 @@ export default function AddEventForm(props) {
     const [eventMonth, setEventMonth] = useState("");
     const [eventYear, setEventYear] = useState("");
 
-    //const [isVisibleMap, setIsVisibleMap] = useState(false);
-    //const [eventLocation, setEventLocation] = useState(null);
+    const [isVisibleMap, setIsVisibleMap] = useState(false);
+    const [locationEvent, setLocationEvent] = useState(null);
 
     const addEvent = () => {
         if (!eventName || !eventAdress || !eventDescription) {
@@ -36,6 +36,7 @@ export default function AddEventForm(props) {
                     name: eventName,
                     address: eventAdress,
                     description: eventDescription,
+                    location: locationEvent,
                     votingTotal: 0,
                     timeHour: eventTimeHour,
                     timeMinute: eventTimeMinute,
@@ -68,21 +69,20 @@ export default function AddEventForm(props) {
                 setEventDay={setEventDay}
                 setEventMonth={setEventMonth}
                 setEventYear={setEventYear}
-                //setIsVisibleMap={setIsVisibleMap}
-                //locationEvent={locationEvent}
+                setIsVisibleMap={setIsVisibleMap}
+                locationEvent={locationEvent}
             />
             <Button
                 title="Event erstellen"
                 onPress={addEvent}
                 buttonStyle={styles.buttonAddEvent}
             />
-            {/*
+            
             <Map
                 isVisibleMap={isVisibleMap}
                 setIsVisibleMap={setIsVisibleMap}
                 setLocationEvent={setLocationEvent}
             />
-            */}
         </ScrollView>
     );
     }
@@ -96,9 +96,9 @@ export default function AddEventForm(props) {
             setEventTimeMinute,
             setEventDay,
             setEventMonth,
-            setEventYear
-            //setIsVisibleMap,
-            //locationEvent,
+            setEventYear,
+            setIsVisibleMap,
+            locationEvent,
         } = props;
     
     return (
@@ -121,8 +121,8 @@ export default function AddEventForm(props) {
                 rightIcon={{ 
                     type: "ionicon",
                     name: "map",
-                    color: "#C2C2C2",
-                    //onPress: () => setIsVisibleMap(true)
+                    color: locationEvent ? "#00a680" : "#c2c2c2",
+                    onPress: () => setIsVisibleMap(true)
                 }}
             />
 
@@ -186,7 +186,7 @@ export default function AddEventForm(props) {
 } 
 
 
-{/*
+
 function Map(props) {
     const {isVisibleMap, setIsVisibleMap, setLocationEvent} = props;
     const [location, setLocation] = useState(null);
@@ -252,7 +252,7 @@ function Map(props) {
         </Modal>
     )
 }
-*/}
+
 
 const styles = StyleSheet.create({
     scrollView: {

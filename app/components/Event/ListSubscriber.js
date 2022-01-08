@@ -22,6 +22,7 @@ export default function ListSubscriber(props) {
             {userLogged ? (
                 <Button
                     title="Entscheide dich jetzt!"
+                    buttonStyle={styles.buttonContainer}
                     onPress={() => 
                         navigation.navigate("add-voting-event", {
                         idEvent: idEvent, 
@@ -39,5 +40,8 @@ export default function ListSubscriber(props) {
 }
 
 const styles = StyleSheet.create({
-
+    buttonContainer: {
+        backgroundColor: "#00a2e5",
+        margin: 20
+    }
 })

@@ -11,6 +11,7 @@ import EventsList from '../../components/Event/EventsList'
 const db = firebase.firestore(firebaseApp)
 
 export default function Refrectory(props) {
+    
     const {navigation} = props;
     const [user, setUser] = useState(null);
     const [events, setEvents] = useState([]);
