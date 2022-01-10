@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { Button, Image } from "react-native-elements"
+import { Button, Input } from "react-native-elements"
 import Loading from '../../components/Loading';
 
 import { firebaseApp } from '../../utils/firebase';
@@ -58,19 +58,11 @@ export default function AddVotingEvent(props) {
 
     return (
         <View style={styles.viewBody}>
-            <View style={{alignItems: "center"}}>
-                <Image
-                    source={{uri: 'https://image.freepik.com/free-vector/event-calendar-notification-freelancer-project-deadline-date-appointment-reminder-calendar-megaphone-isolated-design-element-time-management-concept-illustration_335657-1693.jpg'}}
-                    containerStyle={styles.item}
-                />
-                <Text style={{padding: 20}}>Sind Sie sicher an diesem Event teilzunehmen?</Text>
-            </View>
-            <View style={{width: "75%", marginTop: 10}}>
+            <Text>Wie viele kommen mit dir zum Event?</Text>
             <Button 
                 title="TEILNEHMEN"
                 onPress={handleButton}
             />
-            </View>
             <Loading isVisible={isLoading} text="Abschicken" />
         </View>
     )
@@ -78,13 +70,6 @@ export default function AddVotingEvent(props) {
 
 const styles = StyleSheet.create({
     viewBody: {
-        justifyContent: 'center', //Centered horizontally
-        alignItems: 'center', //Centered vertically
-        flex:1,
-        backgroundColor: "#FFF"
-    },
-    item: {
-        width: 200,
-        height: 200,
+        flex: 1 
     }
 })
