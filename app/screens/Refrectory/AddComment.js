@@ -7,9 +7,7 @@ import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-const db = firebase.firestore(firebaseApp);
-
-export default function AddComment(props) {
+export default function AddReviewRestaurant(props) {
     const { navigation, route } = props;
     const { idFood } = route.params;
     const [rating, setRating] = useState(null);
@@ -19,9 +17,9 @@ export default function AddComment(props) {
 
     const addComment = () => {
         if (!rating) {
-            alert("Keine Bewertung abgegeben!");
+            alert("Keine Eingabe gefunden!");
         } else if (!title) {
-            alert("Kein Titel festgelegt");
+            alert("Kein Titel gefunden");
         } else if (!review) {
             alert("Kein Kommentar abgegben");
         } else {
@@ -39,7 +37,7 @@ export default function AddComment(props) {
         db.collection("comments")
         .add(paylod)
         .then(() => {
-            updateFood();
+            updateFood
         })
         .catch(() => {
             alert("Ein Fehler bei der Bewertung");
@@ -49,21 +47,19 @@ export default function AddComment(props) {
     };
 
     const updateFood = () => {
-        const foodRef = db.collection("foods").doc(idFood);
+        const foodRef = db.collection("restaurants").doc(idRestaurant);
   
         foodRef.get().then((response) => {
             const foodData = response.data();
-            const ratingTotal = foodData.ratingTotal + rating;
-            const commentsTotal = foodData.commentsTotal + 1;
-            const quantityRating= foodData.quantityRating + 1;
-            const ratingResult = ratingTotal / quantityRating;
+            const ratingTotal = restaurantData.ratingTotal + rating;
+            const quantityVoting = restaurantData.quantityVoting + 1;
+            const ratingResult = ratingTotal / quantityVoting;
   
         foodRef
             .update({
                 rating: ratingResult,
                 ratingTotal,
-                quantityRating,
-                commentsTotal
+                quantityVoting,
             })
             .then(() => {
                 setIsLoading(false);
@@ -110,9 +106,6 @@ export default function AddComment(props) {
     }
 
 const styles = StyleSheet.create({
-    viewBody: {
-        padding: 20
-    },  
     viewContent: {
         flex: 1,
     }, 
@@ -120,7 +113,4 @@ const styles = StyleSheet.create({
         height: 110,
         backgroundColor: "#F2F2F2",
     },
-    textArea: {
-        height: 100
-    }
 })
