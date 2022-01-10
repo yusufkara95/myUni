@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import Loading from '../../components/Loading';
 import Map from "../../components/Map"
 
 import {firebaseApp} from "../../utils/firebase"
 import firebase from 'firebase/app';
 import "firebase/firestore"
-import { Icon, Rating} from 'react-native-elements';
+import { Button, Icon, Rating } from 'react-native-elements';
 
+import ListSubscriber from '../../components/Event/ListSubscriber';
+import { map } from 'lodash';
 import ListComments from '../../components/Refrectory/ListComments';
 
 const db =  firebase.firestore(firebaseApp);
@@ -17,8 +19,6 @@ export default function EventDetail(props) {
     const { id, name, idFood } = route.params;
     const [ food, setFood ] = useState(null);
     const [ rating, setRating ] = useState(0);
-    const [ color, setColor ] = useState(null);
-    const [ iconName, setIconName ] = useState("")
 
     navigation.setOptions({ title: name });
 
@@ -40,37 +40,34 @@ export default function EventDetail(props) {
 
     return (
         <ScrollView vertical style={{flex: 1, backgroundColor: "#FFF"}}>
-            <InfoFood
+            <InfoEvent
                 name={food.name}
                 description={food.description}
                 rating={food.rating}
-                color={food.color}
-                iconName={food.iconName}
             />
 
             <ListComments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
                 navigation={navigation}
                 idFood={food.id}
+                setRating={setRating}
             />
         </ScrollView>
     )
 }
 
-function InfoFood(props) {
-    const {name, description, rating, iconName, iconColor, color} = props;
+function InfoEvent(props) {
+    const {name, description, rating} = props;
 
     return (
         <View>
-            <View style={{height: 250, backgroundColor: color, alignItems: "center", justifyContent: "center"}}>
-            <Icon name={iconName} type='font-awesome-5' color={iconColor} size={96} />
+            <View style={styles.imageView}>
+            <Text>asdasdsad</Text>
+            
 
             </View>
                 <View style={styles.viewContent}>
                     <Text style={styles.nameFood}>{name}</Text>
                     <Rating style={styles.rating} imageSize={20} readonly  startingValue={rating} />
-                </View>
-                <View>
-                    <Text style={styles.descriptionFood}>{description}</Text>
                 </View>
             </View>
     )
@@ -81,16 +78,16 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 20
     },
+    imageView: {
+        height: 250,
+        backgroundColor: "#00a2e5", 
+        alignItems: "center",
+        justifyContent: "center"
+    },
     nameFood: {
         fontSize: 18,
         fontWeight: "600"
     }, 
-    descriptionFood: {
-        flexDirection: "row",
-        color: "grey",
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
     rating: {
         position: "absolute",
         right: 0,
