@@ -32,6 +32,7 @@ export default function ListSubscriber(props) {
             ) : (
                 <View>
                     <Text>Um teilzunehmen muss du angemeldet sein!</Text>
+                    <Button title="Anmelden" onPress={() => navigation.navigate("login")} />
                 </View>
             )}
         </View>
