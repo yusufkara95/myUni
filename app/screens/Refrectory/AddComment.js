@@ -7,7 +7,9 @@ import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-export default function AddReviewRestaurant(props) {
+const db = firebase.firestore(firebaseApp);
+
+export default function AddComment(props) {
     const { navigation, route } = props;
     const { idFood } = route.params;
     const [rating, setRating] = useState(null);
@@ -17,9 +19,9 @@ export default function AddReviewRestaurant(props) {
 
     const addComment = () => {
         if (!rating) {
-            alert("Keine Eingabe gefunden!");
+            alert("Keine Bewertung abgegeben!");
         } else if (!title) {
-            alert("Kein Titel gefunden");
+            alert("Kein Titel festgelegt");
         } else if (!review) {
             alert("Kein Kommentar abgegben");
         } else {
@@ -37,7 +39,7 @@ export default function AddReviewRestaurant(props) {
         db.collection("comments")
         .add(paylod)
         .then(() => {
-            updateFood
+            updateFood();
         })
         .catch(() => {
             alert("Ein Fehler bei der Bewertung");
@@ -47,19 +49,21 @@ export default function AddReviewRestaurant(props) {
     };
 
     const updateFood = () => {
-        const foodRef = db.collection("restaurants").doc(idRestaurant);
+        const foodRef = db.collection("foods").doc(idFood);
   
         foodRef.get().then((response) => {
             const foodData = response.data();
-            const ratingTotal = restaurantData.ratingTotal + rating;
-            const quantityVoting = restaurantData.quantityVoting + 1;
-            const ratingResult = ratingTotal / quantityVoting;
+            const ratingTotal = foodData.ratingTotal + rating;
+            const commentsTotal = foodData.commentsTotal + 1;
+            const quantityRating= foodData.quantityRating + 1;
+            const ratingResult = ratingTotal / quantityRating;
   
         foodRef
             .update({
                 rating: ratingResult,
                 ratingTotal,
-                quantityVoting,
+                quantityRating,
+                commentsTotal
             })
             .then(() => {
                 setIsLoading(false);
@@ -106,6 +110,9 @@ export default function AddReviewRestaurant(props) {
     }
 
 const styles = StyleSheet.create({
+    viewBody: {
+        padding: 20
+    },  
     viewContent: {
         flex: 1,
     }, 
@@ -113,4 +120,7 @@ const styles = StyleSheet.create({
         height: 110,
         backgroundColor: "#F2F2F2",
     },
+    textArea: {
+        height: 100
+    }
 })

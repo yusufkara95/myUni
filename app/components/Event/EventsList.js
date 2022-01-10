@@ -44,12 +44,7 @@ function Event(props) {
     return (
         <TouchableOpacity onPress={goEvent}>
             <ListItem bottomDivider >
-            <Image
-                reverse
-                name='megaphone'
-                type='ionicon'
-                color='#00a2e5'
-            />
+            <Icon reverse name="megaphone" type='ionicon' color="#00a2e5" size={24} />
             <ListItem.Content>
                 <ListItem.Title style={styles.title}>{name}</ListItem.Title>
                 <View style={{flexDirection: "row"}}>

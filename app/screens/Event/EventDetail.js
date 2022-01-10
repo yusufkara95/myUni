@@ -6,7 +6,7 @@ import Map from "../../components/Map"
 import {firebaseApp} from "../../utils/firebase"
 import firebase from 'firebase/app';
 import "firebase/firestore"
-import { Button, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 
 import ListSubscriber from '../../components/Event/ListSubscriber';
 import { map } from 'lodash';

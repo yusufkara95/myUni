@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { size } from "lodash"
 import { useNavigation } from "@react-navigation/native";
-import { ListItem, Icon, Image } from 'react-native-elements';
+import { ListItem, Icon } from 'react-native-elements';
 
 
 
@@ -32,35 +32,48 @@ export default function RefrectoryList(props) {
     )
 }
 
+{/* Beim  */}
 function Refrectory(props) {
     const {food, navigation} = props;
-    const {id, name, rating, commentsTotal} = food.item;
+    const {id, name, rating, commentsTotal, category, color, iconName, price} = food.item;
 
-    const goEvent = () => {
+    const goFood = () => {
         navigation.navigate("refrectorydetail", {
             id,
             name,
             rating,
-            commentsTotal
+            commentsTotal,
+            category, 
+            color,
+            iconName,
+            price
         });
     }
 
     return (
-        <TouchableOpacity onPress={goEvent}>
+        <TouchableOpacity onPress={goFood}>
             <ListItem bottomDivider >
-            <ListItem.Content>
-                <ListItem.Title style={styles.title}>{name}</ListItem.Title>
-                <View style={{flexDirection: "row"}}>
+            <Icon reverse name={iconName} type='font-awesome-5' color={color} size={24} />
+            <ListItem.Content style={{padding: 10}}>
+                <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                    <Text style={{ backgroundColor: color , padding: 6, marginRight: 10, marginTop: 2, marginBottom: 5, fontSize: 12, color: "white"}}>{category}</Text><ListItem.Title style={styles.title}>{name}</ListItem.Title>
+                </View>
+                <View style={{flexDirection: "row", paddingTop: 10}}>
+                <View style={{flexDirection: "row", alignItems: "center", marginRight: 20}}>
+                        <Icon name='star' type='ionicon' color={color} size={20} />
+                        <Text style={{fontSize: 18, color: color, fontWeight: "600"}}> {rating}</Text>
+                </View>
 
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='star' type='ionicon' color='#00a2e5' size={16} />
-                        <Text style={styles.rating}>{rating} </Text>
+                <View style={{flexDirection: "row", alignItems: "center", marginRight: 20}}>
+                        <Icon name='chatbox-ellipses' type='ionicon' color={color} size={18} />
+                        <Text style={{fontSize: 18, color: color, fontWeight: "600"}}> {commentsTotal}</Text>
                 </View>
 
                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='chatbox-ellipses' type='ionicon' color='#00a2e5' size={16} />
-                        <Text style={styles.time}>{commentsTotal}</Text>
+                        <Icon name='logo-euro' type='ionicon' color={color} size={18} />
+                        <Text style={{fontSize: 18, color: color, fontWeight: "600"}}> {price}0 €</Text>
                 </View>
+
                 </View>
             </ListItem.Content>
             <ListItem.Chevron />
@@ -81,7 +94,6 @@ function FooterList(props) {
     } else {
         return (
             <View style={styles.notFoundFoods}>
-                <Text>Es wurden keine anderen Events gefunden!</Text>
             </View>
         )
     }
