@@ -54,7 +54,7 @@ export default function Refrectory(props) {
         );
 
     
-
+{/* Wenn mehr als 10 Events gibt, werden weitere Events beim Erreichen des Endes der Liste */}
 const loadMoreEvents = () => {
     const resultEvents = [];
     events.length < totalEvents && setIsLoading(true);
