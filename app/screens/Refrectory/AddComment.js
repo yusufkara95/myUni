@@ -7,7 +7,9 @@ import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-export default function AddReviewRestaurant(props) {
+const db = firebase.firestore(firebaseApp);
+
+export default function AddComment(props) {
     const { navigation, route } = props;
     const { idFood } = route.params;
     const [rating, setRating] = useState(null);
@@ -15,6 +17,7 @@ export default function AddReviewRestaurant(props) {
     const [review, setReview] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    {/* Hinzüfgen des Kommentares */}
     const addComment = () => {
         if (!rating) {
             alert("Keine Eingabe gefunden!");
@@ -37,7 +40,7 @@ export default function AddReviewRestaurant(props) {
         db.collection("comments")
         .add(paylod)
         .then(() => {
-            updateFood
+            updateFood()
         })
         .catch(() => {
             alert("Ein Fehler bei der Bewertung");
@@ -47,19 +50,22 @@ export default function AddReviewRestaurant(props) {
     };
 
     const updateFood = () => {
-        const foodRef = db.collection("restaurants").doc(idRestaurant);
-  
+        const foodRef = db.collection("foods").doc(idFood);
+
+        {/* Vorbereitung der Änderung/Operation für und in der Datenbank */}
         foodRef.get().then((response) => {
             const foodData = response.data();
-            const ratingTotal = restaurantData.ratingTotal + rating;
-            const quantityVoting = restaurantData.quantityVoting + 1;
-            const ratingResult = ratingTotal / quantityVoting;
-  
+            const ratingTotal = foodData.ratingTotal + rating;
+            const commentsTotal = foodData.commentsTotal + 1;
+            const quantityRating= foodData.quantityRating + 1;
+            const ratingResult = ratingTotal / quantityRating;
+
         foodRef
             .update({
                 rating: ratingResult,
                 ratingTotal,
-                quantityVoting,
+                quantityRating,
+                commentsTotal
             })
             .then(() => {
                 setIsLoading(false);
@@ -96,7 +102,7 @@ export default function AddReviewRestaurant(props) {
             <Button
                 title="Bewertung abschicken"
                 containerStyle={styles.btnContainer}
-                buttonStyle={styles.btn}
+                buttonStyle={styles.button}
                 onPress={addComment}
             />
         </View>
@@ -106,11 +112,21 @@ export default function AddReviewRestaurant(props) {
     }
 
 const styles = StyleSheet.create({
-    viewContent: {
+    viewBody: {
         flex: 1,
+        padding:20,
+        justifyContent: "center",
     }, 
     viewRating: {
         height: 110,
         backgroundColor: "#F2F2F2",
     },
+    button: {
+        padding: 10,
+        margin: 10,
+        backgroundColor: "#00a2e5"
+    },
+    textArea: {
+
+    }
 })
