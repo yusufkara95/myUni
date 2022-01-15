@@ -14,18 +14,18 @@ export default function EventStack() {
             <Stack.Screen 
                 name='event'
                 component={Event}
-                options={{ title: "Events" }}
+                options={{ title: "Events", headerStyle: {backgroundColor: "#00a2e5"} }}
             />
             <Stack.Screen
                 name='add-event'
                 component={AddEvent}
-                options={{ title: "Event hinzufügen" }}
+                options={{ title: "Event hinzufügen", headerStyle: {backgroundColor: "#00a2e5"} }}
             />
-            <Stack.Screen name="eventdetail" component={EventDetail} />
+            <Stack.Screen name="eventdetail" component={EventDetail} options={{ title: "Event hinzufügen", headerStyle: {backgroundColor: "#00a2e5"} }} />
             <Stack.Screen 
                 name="add-voting-event" 
                 component={AddVotingEvent}
-                options={{ title: "Event abstimmen" }}
+                options={{ title: "Event abstimmen", headerStyle: {backgroundColor: "#00a2e5"}  }}
             />
         </Stack.Navigator>
     )
