@@ -16,6 +16,7 @@ export default function RegisterForm(props) {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
+    {/* Abfrage und Einfügen eines neuen User-Account per E-Mail und Passworts */}
     const onSubmit = () => {
         if(isEmpty(formData.email) || isEmpty(formData.password) || isEmpty(formData.repeatPassword)) {
             console.log("Die Eingabefelder sind leer.")
