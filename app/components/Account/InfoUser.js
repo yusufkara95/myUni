@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Avatar } from "react-native-elements"
-import * as firebase from "firebase"
 
 
 export default function InfoUser(props) {
@@ -17,9 +16,9 @@ export default function InfoUser(props) {
             >
             </Avatar>
             <View>
-                <Text style={styles.displayName}>Hallo,</Text>
-                <Text>{email}</Text>
+                <Text style={styles.displayName}>Hallo, {email}</Text>
             </View>
+
         </View>
     )
 }
@@ -31,13 +30,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         backgroundColor: "#F2F2F2",
         paddingTop: 30,
-        paddingBottom: 30,  
+        paddingBottom: 10,  
     },
     userInfoAvatar: {
         marginRight: 20,
     },
     displayName: {
         fontWeight: "bold",
-        paddingBottom: 5,
     }
 })
