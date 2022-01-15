@@ -8,6 +8,8 @@ export default function EventsList(props) {
     const {events, loadMoreEvents, isLoading} = props;
     const navigation = useNavigation();
 
+
+    {/* Events werden geladen */}
     return (
         <View>
             {size(events) > 0 ? (
@@ -31,7 +33,7 @@ export default function EventsList(props) {
 
 function Event(props) {
     const {event, navigation} = props;
-    const {id, name, timeHour, timeMinute, day, month, year, votingTotal} = event.item;
+    const {id, name, day, month, year, timeHour, timeMinute, votingTotal} = event.item;
 
 
     const goEvent = () => {
@@ -44,30 +46,22 @@ function Event(props) {
     return (
         <TouchableOpacity onPress={goEvent}>
             <ListItem bottomDivider >
-            <Image
-                reverse
-                name='megaphone'
-                type='ionicon'
-                color='#00a2e5'
-            />
-            <ListItem.Content>
+                <View style={styles.totalMember}>
+                    <Icon name='body' type='ionicon' color='#FFFFFF' size={26} />
+                    <Text style={{marginTop: 5, color: "#FFF", textAlign: "center"}}>{votingTotal}</Text>
+                </View>
+                <ListItem.Content>
                 <ListItem.Title style={styles.title}>{name}</ListItem.Title>
                 <View style={{flexDirection: "row"}}>
-
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='time' type='ionicon' color='#00a2e5' size={16} />
-                        <Text style={styles.time}> {timeHour}:{timeMinute}   </Text>
-                </View>
-
                 <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Icon name='calendar' type='ionicon' color='#00a2e5' size={16} />
                         <Text style={styles.date}> {day}.{month}.{year} </Text>
+                        <Icon name='time' type='ionicon' color='#00a2e5' size={16} />
+                        <Text style={styles.date}> {timeHour}.{timeMinute} Uhr </Text>
                 </View>
                 
                 </View>
                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='body' type='ionicon' color='#00a2e5' size={16} />
-                        <Text style={styles.totalMember}> {votingTotal} Teilnehmer </Text>
                 </View>
             </ListItem.Content>
             <ListItem.Chevron />
@@ -88,7 +82,7 @@ function FooterList(props) {
     } else {
         return (
             <View style={styles.notFoundEvents}>
-                <Text>Es wurden keine anderen Events gefunden!</Text>
+            
             </View>
         )
     }
@@ -139,11 +133,14 @@ const styles = StyleSheet.create({
     date: {
         fontSize: 16,
         color: "#00a2e5",
-        fontWeight: "600"
+        fontWeight: "600",
+        marginRight: 10
     },
     totalMember: {
-        fontSize: 16,
-        color: "#00a2e5",
-        fontWeight: "600"
+        padding: 10,
+        backgroundColor: "#00a2e5",
+        width: 64,
+        height: 64,
+        borderRadius: 12
     }
 })
