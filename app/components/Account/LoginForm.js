@@ -9,7 +9,6 @@ import Loading from '../Loading';
 
 
 export default function LoginForm(props) {
-    const { toastRef } = props;
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState( defaultFormValue() );
     const [loading, setLoading] = useState(false);
