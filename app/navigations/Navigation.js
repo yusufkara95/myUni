@@ -7,8 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import RefrectoryStack from './RefrectoryStack'
 import AccountStack from './AccountStack'
 import EventStack from './EventStack'
-
-
+import FavoritesStack from './FavoritesStack'
 
 
 const Tab = createBottomTabNavigator();
@@ -20,9 +19,12 @@ export default function Navigation() {
                 initialRouteName='Events'
                 screenOptions={({route}) => ({
                     tabBarIcon: ({ color }) => screenOptions(route, color),
-                    inactiveTintColor: "#FFFFFF",
-                    activeTintColor: "white",
+                    tabBarInactiveTintColor: "#000000",
+                    tabBarActiveTintColor: "#FFF",
+                    tabBarStyle: {backgroundColor: "#00a2e5"},
+                    headerStyle: {backgroundColor: "#00a2e5"}
                 })}
+                
             >
                 <Tab.Screen 
                     name="Events" 
@@ -33,6 +35,11 @@ export default function Navigation() {
                     name="Refrectory" 
                     component={RefrectoryStack}
                     options={{ title: "Mensa", headerShown: false }}
+                />
+                <Tab.Screen 
+                    name="Favorites" 
+                    component={FavoritesStack}
+                    options={{ title: "Favoriten", headerShown: false}}
                 />
                 <Tab.Screen 
                     name="Account" 
@@ -57,11 +64,8 @@ function screenOptions(route, color) {
         case "Account": 
             iconName = "person-circle"
             break;
-        case "Search":
-            iconName = "search"
-            break;
-        case "Impressum":
-            iconName = "information-circle"
+        case "Favorites":
+            iconName = "heart"
             break;
         default:
             break;
