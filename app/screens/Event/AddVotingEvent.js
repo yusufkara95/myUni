@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { Button, Input } from "react-native-elements"
+import { Button } from "react-native-elements"
 import Loading from '../../components/Loading';
 
 import { firebaseApp } from '../../utils/firebase';
@@ -19,6 +19,7 @@ export default function AddVotingEvent(props) {
         addVoting();
     }
 
+    {/* Teilnahme für das Event wird hochgezählt */}
     const addVoting = () => {
         setIsLoading(true);
         const user = firebase.auth().currentUser;
@@ -38,16 +39,15 @@ export default function AddVotingEvent(props) {
             })
     }
 
+    {/* Aktualisierung der teilnehmenden Personen an einem Event */}
     const updateEvent = () => {
         const eventRef = db.collection("events").doc(idEvent);
 
         eventRef.get().then((response) => {
             const eventData = response.data();
             const votingTotal = eventData.votingTotal + 1;
-            const votingAccept = eventData.votingAccept + 1;
 
             eventRef.update({
-                votingAccept: votingAccept,
                 votingTotal: votingTotal
             }).then(() => {
                 setIsLoading(false);
@@ -58,10 +58,11 @@ export default function AddVotingEvent(props) {
 
     return (
         <View style={styles.viewBody}>
-            <Text>Wie viele kommen mit dir zum Event?</Text>
+            <Text>Bist du sicher, dass du am Event teilnehmen möchtest?</Text>
             <Button 
                 title="TEILNEHMEN"
                 onPress={handleButton}
+                buttonStyle={styles.button}
             />
             <Loading isVisible={isLoading} text="Abschicken" />
         </View>
@@ -70,6 +71,13 @@ export default function AddVotingEvent(props) {
 
 const styles = StyleSheet.create({
     viewBody: {
-        flex: 1 
+        flex: 1,
+        padding: 20,
+        justifyContent: "center"
+    },
+    button: {
+        marginTop: 10,
+        padding: 10,
+        backgroundColor: "#00a2e5"
     }
 })
