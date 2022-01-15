@@ -9,11 +9,12 @@ import LoginForm from "../../components/Account/LoginForm";
 export default  function Login() {
     return (
         <KeyboardAwareScrollView>
-            <Image 
-                source={require("../../../assets/images/logo.png")}
-                style={styles.logo}
-            />
             <View style={styles.viewContainer}>
+                <Image 
+                    source={require("../../../assets/images/logo.png")}
+                    style={styles.logo}
+                />
+            
                 <LoginForm />
                 <CreateAccount>Account erstellen</CreateAccount>
             </View>
@@ -29,8 +30,7 @@ function CreateAccount() {
             <Text 
                 style={styles.buttonRegister}
                 onPress={() => navigation.navigate("register")}
-            >
-                Registrieren
+            > Registrieren
             </Text>
         </Text>
     )
@@ -39,12 +39,15 @@ function CreateAccount() {
 const styles = StyleSheet.create({
     logo: {
         width: "100%",
-        height: 350,
+        height: 275,
         marginTop: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     viewContainer: {
         marginRight: 40,
         marginLeft: 40,
+        justifyContent: "center",
     },
     textRegister: {
         marginTop: 15,
