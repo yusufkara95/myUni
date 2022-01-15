@@ -8,17 +8,17 @@ export default function Guest() {
     return (
         <ScrollView centerContent={true} style={styles.viewBody}>
             <Image 
-                source={require("../../../assets/images/guest.png")}
+                source={require("../../../assets/images/login.png")}
                 resizeMode='contain'
                 style={styles.image}
             />
             <Text style={styles.title}>Willkommen, Gast.</Text>
             <Text style={styles.description}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+                Bist du Studierender der HRW oder zu Gast an der HRW und möchtest in der Mensa essen oder an den Veranstaltungen & Events teilnehmen, dann registriere dich auf der neuen App
             </Text>
-            <View style={styles.buttonView}>
+            <View>
                 <Button 
-                    title="Mein Konto"
+                    title="REGISTIEREN"
                     buttonStyle={styles.buttonStyle}
                     containerStyle={styles.buttonContainer}
                     onPress={() => navigation.navigate("login")}
@@ -30,8 +30,7 @@ export default function Guest() {
 
 const styles = StyleSheet.create({
     viewBody: {
-        marginLeft: 30,
-        marginRight: 30
+        backgroundColor: "#00a2e5",
     },
     image: {
         height: 300,
@@ -46,13 +45,16 @@ const styles = StyleSheet.create({
     },
     description: {
         textAlign: "center",
+        padding: 20,
         marginBottom: 20,
     },
     buttonStyle: {
-        backgroundColor: "#00a2e5",
+        backgroundColor: "#000",
     },
     buttonContainer: {
-        width: "70%"
+        width: "100%",
+        color: "#00a2e5",
+        padding: 20
     },
     buttonView: {
         flex: 1,
