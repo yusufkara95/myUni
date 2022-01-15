@@ -11,6 +11,7 @@ export default function ListSubscriber(props) {
     const {navigation, idEvent, setAcceptEvent} = props;
     const [userLogged, setUserLogged] = useState(false)
 
+    {/* Abfrage ob der User eingeloggt ist um an Events teilzunehmen */}
     firebase.auth().onAuthStateChanged((user) => {
         user ? setUserLogged(true) : setUserLogged(false);
         console.log(user)
@@ -21,7 +22,7 @@ export default function ListSubscriber(props) {
         <View>
             {userLogged ? (
                 <Button
-                    title="Entscheide dich jetzt!"
+                    title="Jetzt teilnehmen"
                     buttonStyle={styles.buttonContainer}
                     onPress={() => 
                         navigation.navigate("add-voting-event", {
