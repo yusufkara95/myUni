@@ -25,6 +25,7 @@ export default function AddEventForm(props) {
     const [isVisibleMap, setIsVisibleMap] = useState(false);
     const [locationEvent, setLocationEvent] = useState(null);
 
+    {/* Events werden hinzugefügt in die Firestore Database */}
     const addEvent = () => {
         if (!eventName || !eventAdress || !eventDescription) {
             alert("Sie müssen alle Felder ausfüllen!");
@@ -86,7 +87,7 @@ export default function AddEventForm(props) {
         </ScrollView>
     );
     }
-
+    {/* Variablen für die vordefinierten Variablen für die Datenbank werden gesetzt */}
     function FormAdd(props) {
         const {
             setEventName,
@@ -101,8 +102,10 @@ export default function AddEventForm(props) {
             locationEvent,
         } = props;
     
+        {/* Eingabefeld für das Einfügen von Veranstaltungen */}
     return (
         <View style={styles.viewForm}>
+            <Text style={{ marginBottom: 10}}>Sie möchten eine Veranstaltung oder Event veranstalten, dann füllen Sie diesen Formular aus:</Text>
             <Input
                 placeholder="Titel"
                 containerStyle={styles.input}
@@ -186,7 +189,7 @@ export default function AddEventForm(props) {
 } 
 
 
-
+{/* Berechtigung für Standortfreigabe und Setzten der Koordinaten */}
 function Map(props) {
     const {isVisibleMap, setIsVisibleMap, setLocationEvent} = props;
     const [location, setLocation] = useState(null);
@@ -215,6 +218,7 @@ function Map(props) {
         setIsVisibleMap(false);
     };
 
+    {/* Modal-Popup um ein Standort zusetzen */}
     return (
         <Modal isVisible={isVisibleMap} setIsVisibleMap={setIsVisibleMap}>
             <View>
@@ -256,11 +260,13 @@ function Map(props) {
 
 const styles = StyleSheet.create({
     scrollView: {
-        height: "100%"
+        height: "100%",
+        padding: 20,
     },
     viewForm: {
         marginLeft: 10,
         marginRight: 10,
+        alignItems: "center"
     },
     input: {
         marginBottom: 10
