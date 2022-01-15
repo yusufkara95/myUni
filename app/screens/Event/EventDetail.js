@@ -6,10 +6,9 @@ import Map from "../../components/Map"
 import {firebaseApp} from "../../utils/firebase"
 import firebase from 'firebase/app';
 import "firebase/firestore"
-import { Button, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 
 import ListSubscriber from '../../components/Event/ListSubscriber';
-import { map } from 'lodash';
 
 const db =  firebase.firestore(firebaseApp);
 
@@ -35,8 +34,7 @@ export default function EventDetail(props) {
 
     if(!event) return <Loading isVisible={true} text="Ladet..." />
 
-
-
+    {/* Variablen werden für die Eventinformationen gesetzt */}
     return (
         <ScrollView vertical style={{flex: 1, backgroundColor: "#FFF"}}>
             <InfoEvent
@@ -60,6 +58,8 @@ export default function EventDetail(props) {
     )
 }
 
+
+{/* Vorlage für die Event-Detail-View */}
 function InfoEvent(props) {
     const {name, description, location, address, votingTotal, timeHour, timeMinute, eventDay, eventMonth, eventYear} = props;
 
