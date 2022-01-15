@@ -6,6 +6,7 @@ export default function Map(props) {
 
     const { location, name, height } = props;
 
+    {/* Maps-Ansicht für die Eventseite */}
     const openAppMap = () => {
         openMap({
             latitude: location.latitude,
