@@ -1,16 +1,14 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { size } from "lodash"
 import { useNavigation } from "@react-navigation/native";
-import { ListItem, Icon, Image } from 'react-native-elements';
-
-
+import { ListItem, Icon} from 'react-native-elements';
 
 export default function RefrectoryList(props) {
     const {foods, loadMoreFoods, isLoading} = props;
     const navigation = useNavigation();
 
-
+    {/* Eine Liste von Spei0en werden ausgegeben */}
     return (
         <View>
             {size(foods) > 0 ? (
@@ -25,7 +23,6 @@ export default function RefrectoryList(props) {
             ) : (
                 <View style={styles.loaderFoods}>
                     <ActivityIndicator size="large" />
-                    <Text>Speisen werden geladen</Text>
                 </View>
             )}
         </View>
@@ -34,32 +31,46 @@ export default function RefrectoryList(props) {
 
 function Refrectory(props) {
     const {food, navigation} = props;
-    const {id, name, rating, commentsTotal} = food.item;
+    const {id, name, rating, commentsTotal, color, iconName, price, category} = food.item;
 
-    const goEvent = () => {
+    {/* Informationen aus der Datenbank werden abgeholt und noch in die Detail-View übergeben */}
+
+    const goRefrectory = () => {
         navigation.navigate("refrectorydetail", {
             id,
             name,
             rating,
-            commentsTotal
+            commentsTotal, 
+            color,
+            iconName,
+            price,
+            category
         });
     }
 
+    {/* Speisevorlagen in der Mensa-Liste */}
     return (
-        <TouchableOpacity onPress={goEvent}>
+        <TouchableOpacity onPress={goRefrectory}>
             <ListItem bottomDivider >
+            <Icon reverse name={iconName} type='font-awesome-5' color={color} size={24} />
             <ListItem.Content>
-                <ListItem.Title style={styles.title}>{name}</ListItem.Title>
+            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                    <Text style={{ backgroundColor: color , padding: 6, marginRight: 10, marginTop: 2, marginBottom: 5, fontSize: 12, color: "white"}}>{category}</Text><ListItem.Title style={styles.title}>{name}</ListItem.Title>
+            </View>
                 <View style={{flexDirection: "row"}}>
 
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='star' type='ionicon' color='#00a2e5' size={16} />
-                        <Text style={styles.rating}>{rating} </Text>
+                <View style={{flexDirection: "row", alignItems: "center", marginRight: 20}}>
+                        <Icon name='star' type='ionicon' color={color} size={20} />
+                        <Text style={{fontSize: 16, color: color}}> {rating} </Text>
                 </View>
 
+                <View style={{flexDirection: "row", alignItems: "center", marginRight: 20}}>
+                        <Icon name='chatbox-ellipses' type='ionicon' color={color} size={16} />
+                        <Text style={{fontSize: 16, color: color}}> {commentsTotal}</Text>
+                </View>
                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Icon name='chatbox-ellipses' type='ionicon' color='#00a2e5' size={16} />
-                        <Text style={styles.time}>{commentsTotal}</Text>
+                        <Icon name='logo-euro' type='ionicon' color={color} size={18} />
+                        <Text style={{fontSize: 16, color: color, fontWeight: "600"}}> {price}0 €</Text>
                 </View>
                 </View>
             </ListItem.Content>
@@ -81,7 +92,7 @@ function FooterList(props) {
     } else {
         return (
             <View style={styles.notFoundFoods}>
-                <Text>Es wurden keine anderen Events gefunden!</Text>
+                
             </View>
         )
     }
