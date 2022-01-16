@@ -136,7 +136,7 @@ export default function AddEventForm(props) {
             }}>
                 <View style={styles.inputWrap}>
                     <Input
-                        placeholder="Stunden"
+                        placeholder="Uhrzeit-Stunden"
                         keyboardType = 'numeric'
                         maxLength={2}
                         onChange={(e) => setEventTimeHour(e.nativeEvent.text)}
@@ -144,7 +144,7 @@ export default function AddEventForm(props) {
                 </View>
                 <View style={styles.inputWrap}>
                     <Input
-                        placeholder="Minuten"
+                        placeholder="Uhrzeit-Minuten"
                         keyboardType = 'numeric'
                         maxLength={2}
                         onChange={e => setEventTimeMinute(e.nativeEvent.text)}
