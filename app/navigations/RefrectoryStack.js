@@ -13,16 +13,20 @@ export default function RefrectoryStack() {
             <Stack.Screen 
                 name='refrectory'
                 component={Refrectory}
-                options={{ title: "Mensa" }}
+                options={{ 
+                    title: "Mensa", 
+                    headerStyle: {backgroundColor: "#00a2e5"},
+                    }}
             />
             <Stack.Screen 
                 name="refrectorydetail" 
                 component={RefrectoryDetail} 
+                options={{ headerStyle: {backgroundColor: "#00a2e5"}  }}
             />
             <Stack.Screen 
                 name="add-comment" 
                 component={AddComment} 
-                options={{ title: "Bewertung hinzufügen" }}
+                options={{ title: "Bewertung hinzufügen", headerStyle: {backgroundColor: "#00a2e5"}  }}
             />
             
             </Stack.Navigator>
