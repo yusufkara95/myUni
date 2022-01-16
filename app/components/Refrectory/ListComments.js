@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, Avatar, Rating } from "react-native-elements";
-import { map } from "lodash";
+import { Button, Icon, Rating } from "react-native-elements";
+import { create, map } from "lodash";
 
 import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
@@ -12,23 +12,40 @@ const db = firebase.firestore(firebaseApp);
 export default function ListComments(props) {
     const { navigation, idFood } = props;
     const [userLogged, setUserLogged] = useState(false);
-    const [reviews, setReviews] = useState([]);
+    const [comments, setComments] = useState([]);
     
 
     firebase.auth().onAuthStateChanged((user) => {
         user ? setUserLogged(true) : setUserLogged(false);
     })
 
+    useEffect(() => {
+        db.collection("comments")
+            .where("idFood", "==", idFood)
+            .get()
+            .then((response) => {
+                const resultComments = [];
+                response.forEach((doc) => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    resultComments.push(data)
+                })
+                setComments(resultComments);
+            })
+    }, [idFood])
+
+ 
     return (
         <View>
+            {/* Abfrage, ob Nutzer angemeldet ist */}
             {userLogged ? (
                 <Button 
                     title="Bewertung hinzufügen"
-                    buttonStyle={styles.buttonAddComment}
+                    buttonStyle={{padding: 10, margin: 20, backgroundColor: "#00a2e5"}}
                     icon={{
                         type: "ionicon",
                         name: "create",
-                        color: "#FFF"
+                        color: "#FFF",
                     }}
                     onPress={() =>
                         navigation.navigate("add-comment", {
@@ -37,22 +54,48 @@ export default function ListComments(props) {
                     }
                 />
             ) : (
-                <View>
+                <View style={{padding: 20}}>
                     <Text>Um eine Bewertung zu schreiben, musst du angemeldet sein!</Text>
-                    <Button title="Anmelden" onPress={() => navigation.navigate("login")} />
+                    <Button buttonStyle={{backgroundColor: "#00a2e5"}} title="Anmelden" onPress={() => navigation.navigate("login")} />
                 </View>
             )}
+            {/* Kommentare der ausgewählten Speisen werden angezeigt */}
+            <Text style={styles.commentAndrating}>Kommentare & Bewertungen</Text>
+                {map(comments, (review, index) => (
+                    <Comment key={index} review={review} />
+                ))}
         </View>
     )
 }
 
+{/* Kommentarvorlage */}
+function Comment(props) {
+    const { title, review, rating, createAt} = props.review;
+    const createComment = new Date(createAt.seconds * 1000);
+
+    return (
+            <View style={styles.viewReview}>
+        <View style={styles.viewImageAvatar}>
+                <Icon
+                    reverse
+                    name='person'
+                    type='ionicon'
+                    color="#00a2e5"
+                />
+        </View>
+        <View style={styles.viewInfo}>
+            <Text style={styles.reviewTitle}>{title}</Text>
+            <Text style={styles.reviewText}>{review}</Text>
+            <Rating imageSize={15} startingValue={rating} readonly />
+            <Text style={styles.reviewDate}> am {createComment.getDate()}.{createComment.getMonth() + 1}.{createComment.getFullYear()} um {createComment.getHours()}:{createComment.getMinutes()}
+            </Text>
+        </View>
+        </View> 
+        
+    )
+}
+
 const styles = StyleSheet.create({
-    btnAddReview: {
-        backgroundColor: "transparent",
-    },
-    btnTitleAddReview: {
-        color: "#00a680",
-    },
     viewReview: {
         flexDirection: "row",
         padding: 10,
@@ -87,4 +130,11 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
+    commentAndrating: {
+        padding: 10,
+        backgroundColor: "#00a2e5",
+        color: "#FFF",
+        marginBottom: 5,
+        marginTop: 5
+    }
 });
