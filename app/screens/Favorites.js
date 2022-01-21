@@ -123,7 +123,7 @@ function UserNoLogged(props) {
         Du musst angemeldet sein, um deine Favoriten anzusehen!
       </Text>
       <Button
-        title="Ir al login"
+        title="MELDE DICH AN!"
         containerStyle={{ marginTop: 20, width: "80%" }}
         buttonStyle={{ backgroundColor: "#00a680" }}
         onPress={() => navigation.navigate("login")}

@@ -20,7 +20,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.myuni.hrw",
+      "package": "com.mobilecomputing.myuni",
       "permissions": [
         "LOCATION",
         "ACCESS_COARSE_LOCATION",

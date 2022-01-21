@@ -18,7 +18,7 @@ export default function Guest() {
             </Text>
             <View>
                 <Button 
-                    title="REGISTIEREN"
+                    title="ZUM LOGIN"
                     buttonStyle={styles.buttonStyle}
                     containerStyle={styles.buttonContainer}
                     onPress={() => navigation.navigate("login")}
