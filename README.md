@@ -1,3 +1,1 @@
-# myUni
-
-Die App wird bald weiterentwickelt!
+GitHub-Repository: https://github.com/yugamuga/myUni
