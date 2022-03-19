@@ -1,1 +1,6 @@
-GitHub-Repository: https://github.com/yugamuga/myUni
+# About
+Soon
+
+# How to install & run
+
+# Screenshots
