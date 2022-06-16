@@ -6,7 +6,7 @@ Don't forget to give this project a star for additional support ;)
 Maybe you can mention me or this repo in the acknowledgements too
 -->
 <div align="center">
-  <img src="assets/logo_transparent.png" alt="logo" width="200" height="auto" />
+  <img src="assets/screenshots/screen_header.png" alt="logo" height="100%" />
 </div>
 
 <br />
