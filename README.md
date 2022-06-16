@@ -113,17 +113,6 @@ Start the server
   npm/expo start
 ```
 
-
-<!-- Deployment -->
-### :triangular_flag_on_post: Deployment
-
-To deploy this project run
-
-```bash
-  yarn deploy
-```
-
-
 <!-- Contributing -->
 ## :wave: Contributing
 
